@@ -38,7 +38,7 @@ services:
   # ----------------------------------------------------------
   postgres:
     image: postgres:15-alpine
-    container_name: devsecops_postgres
+    container_name: devsecops-postgres    # underscore → guión
     restart: unless-stopped
     environment:
       POSTGRES_USER: sonar
@@ -61,7 +61,7 @@ services:
   # ----------------------------------------------------------
   sonarqube:
     image: sonarqube:community
-    container_name: devsecops_sonarqube
+    container_name: devsecops-sonarqube   # underscore → guión
     restart: unless-stopped
     depends_on:
       postgres:
@@ -98,9 +98,13 @@ services:
   # ----------------------------------------------------------
   jenkins:
     image: jenkins/jenkins:lts-jdk21
-    container_name: devsecops_jenkins
+    container_name: devsecops-jenkins     # underscore → guión
     restart: unless-stopped
     user: root   # necesario para poder usar Docker dentro de Jenkins
+    entrypoint: >
+      bash -c "apt-get update -qq &&
+               apt-get install -y docker.io -qq &&
+               /usr/bin/tini -- /usr/local/bin/jenkins.sh"
     environment:
       JENKINS_OPTS: "--httpPort=8080"
       JAVA_OPTS: "-Xmx512m -Xms256m"   # limita RAM de Jenkins a ~512 MB
@@ -134,7 +138,7 @@ services:
   # ----------------------------------------------------------
   trivy:
     image: aquasec/trivy:latest
-    container_name: devsecops_trivy
+    container_name: devsecops-trivy
     volumes:
       # Caché de la base de datos de vulnerabilidades
       - ~/.cache/trivy:/root/.cache/trivy   # Linux
