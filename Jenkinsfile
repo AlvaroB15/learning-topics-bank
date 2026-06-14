@@ -105,7 +105,7 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     // MODO ACTUAL: no bloquea aunque falle el Quality Gate
                     waitForQualityGate abortPipeline: false
                     // ── Para hacerlo OBLIGATORIO en el futuro: ──
