@@ -16,10 +16,12 @@ version: "3.8"
 #  Bajar: docker compose down
 #  Ver logs: docker compose logs -f sonarqube
 # ============================================================
+name: devsecops-stack    # ← agrega esta línea al inicio
 
 networks:
   devsecops:
     driver: bridge
+    name: devsecops      # ← agrega este nombre fijo
 
 volumes:
   postgres_data:
