@@ -105,6 +105,8 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
+                // Espera 30 segundos para que SonarQube procese el reporte
+                sleep(time: 50, unit: 'SECONDS')
                 timeout(time: 5, unit: 'MINUTES') {
                     // MODO ACTUAL: no bloquea aunque falle el Quality Gate
                     waitForQualityGate abortPipeline: false
