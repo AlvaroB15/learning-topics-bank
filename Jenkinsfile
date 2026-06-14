@@ -85,18 +85,20 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube-local') {
-                    sh """
-                        npx @sonar/scan \
-                          -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                          -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
-                          -Dsonar.sources=. \
-                          -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.test.*,**/*.spec.* \
-                          -Dsonar.host.url=http://devsecops_sonarqube:9000
-                    """
-                    // ── Cuando tengas coverage de Jest, agrega dentro del sh: ──
-                    // -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                    // -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
-                    // -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts \
+                    withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                        sh """
+                            npx @sonar/scan \
+                              -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                              -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
+                              -Dsonar.sources=. \
+                              -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.test.*,**/*.spec.* \
+                              -Dsonar.host.url=http://devsecops_sonarqube:9000
+                        """
+                        // ── Cuando tengas coverage de Jest, agrega dentro del sh: ──
+                        // -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                        // -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
+                        // -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts \
+                    }
                 }
             }
         }
