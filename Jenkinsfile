@@ -34,7 +34,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                echo "Rama: ${env.BRANCH_NAME} — Commit: ${env.GIT_COMMIT?.take(7)}"
+                echo "Rama: ${env.GIT_BRANCH ?: 'main'} — Commit: ${env.GIT_COMMIT?.take(7)}"
             }
         }
 
