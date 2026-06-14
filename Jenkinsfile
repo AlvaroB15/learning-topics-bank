@@ -40,6 +40,7 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
+                sh 'npm install -g pnpm'
                 // Si usas npm:  sh 'npm ci'
                 // Si usas yarn: sh 'yarn install --frozen-lockfile'
                 sh 'pnpm install --frozen-lockfile'
