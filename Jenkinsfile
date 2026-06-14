@@ -92,7 +92,7 @@ pipeline {
                               -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
                               -Dsonar.sources=. \
                               -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.test.*,**/*.spec.* \
-                              -Dsonar.host.url=http://172.19.0.4:9000
+                              -Dsonar.host.url=http://devsecops_sonarqube:9000
                         """
                         // ── Cuando tengas coverage de Jest, agrega dentro del sh: ──
                         // -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
