@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  is-generator-function: 1.0.10
-
 importers:
 
   .:
