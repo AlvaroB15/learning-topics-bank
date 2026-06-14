@@ -126,6 +126,8 @@ pipeline {
                         --exit-code 0 \
                         --severity HIGH,CRITICAL \
                         --format table \
+                        --scanners vuln,secret \
+                        --package-manager pnpm \
                         /scan
                 """
                 // ── Para BLOQUEAR el pipeline en vulnerabilidades CRITICAL: ──
