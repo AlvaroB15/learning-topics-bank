@@ -138,11 +138,12 @@ pipeline {
                       aquasec/trivy:latest image \
                         --exit-code 0 \
                         --severity HIGH,CRITICAL \
+                        --quiet \
                         --format table \
                         --table-mode summary \
                         personal:latest
                 """
-            // ── Para BLOQUEAR en CRITICAL: cambia --exit-code 0 por --exit-code 1
+                // ── Para BLOQUEAR en CRITICAL: cambia --exit-code 0 por --exit-code 1
             }
         }
 
