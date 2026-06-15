@@ -18,5 +18,25 @@ services:
       timeout: 5s
       retries: 5
 
+  api:
+    build: .
+    container_name: banking-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env                      # toma todas las vars del .env
+    environment:
+      DB_HOST: postgres           # ← sobrescribe localhost por el nombre del servicio
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
 volumes:
   postgres_data:

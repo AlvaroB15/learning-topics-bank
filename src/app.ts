@@ -30,6 +30,16 @@ app.use(async (ctx, next) => {
 app.use(api.routes());
 app.use(api.allowedMethods());
 
+// Health check endpoint
+app.use(async (ctx, next) => {
+    if (ctx.path === '/health') {
+        ctx.status = 200;
+        ctx.body = {status: 'ok'};
+        return;
+    }
+    await next();
+});
+
 // 404 catch-all
 app.use((ctx) => {
     ctx.status = 404;
