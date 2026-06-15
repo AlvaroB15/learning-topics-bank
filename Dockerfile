@@ -6,6 +6,8 @@
 
 # ── Stage 1: Build ──────────────────────────────────────────
 FROM node:24-alpine AS builder
+# Agrega esto después del FROM para actualizar el OS
+RUN apk update && apk upgrade --no-cache
 
 WORKDIR /app
 
@@ -24,7 +26,7 @@ RUN pnpm build
 
 # ── Stage 2: Producción ─────────────────────────────────────
 FROM node:24-alpine AS production
-
+RUN apk update && apk upgrade --no-cache
 WORKDIR /app
 
 # Usuario no-root por seguridad
