@@ -113,10 +113,10 @@ pipeline {
                         --exit-code 0 \
                         --severity HIGH,CRITICAL \
                         --format table \
+                        --table-mode summary \
                         --scanners vuln,secret \
                         /scan
                 """
-                // ── Para BLOQUEAR en CRITICAL: cambia --exit-code 0 por --exit-code 1
             }
         }
 
@@ -139,9 +139,10 @@ pipeline {
                         --exit-code 0 \
                         --severity HIGH,CRITICAL \
                         --format table \
-                        ${APP_IMAGE}
+                        --table-mode summary \
+                        personal:latest
                 """
-                // ── Para BLOQUEAR en CRITICAL: cambia --exit-code 0 por --exit-code 1
+            // ── Para BLOQUEAR en CRITICAL: cambia --exit-code 0 por --exit-code 1
             }
         }
 
